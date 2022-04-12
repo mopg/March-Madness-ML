@@ -1,5 +1,14 @@
 # March-Madness-ML
 
+Updated with data for 2022 tournament and made it easier to run predictions for entire bracket and then enter it manually in a website.
+
+Process for running:
+1 `DataPreprocessing.py`
+2 `trainMarchMadness.py`
+3 `runMarchMadnessPrediction2022.py`
+
+# ORIGINAL README BELOW
+
 Applying machine learning to March Madness. Check out my first repo [here](https://github.com/adeshpande3/March-Madness-2017) and my associated [blog post](https://adeshpande3.github.io/adeshpande3.github.io/Applying-Machine-Learning-to-March-Madness). I've tried to make this repository extensible enough so that I can use it from year to year. 
 
 ## Overview

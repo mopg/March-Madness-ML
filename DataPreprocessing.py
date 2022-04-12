@@ -248,6 +248,9 @@ def getSeasonData(team_id, year):
     name = getTeamName(team_id)
     team = stats_SOS_pd[stats_SOS_pd['School'] == name]
     team_rating = ratings_pd[ratings_pd['School'] == name]
+    if name == "Gonzaga":
+        print(name)
+        print(len(team.index) == 0, len(team_rating.index) == 0)
     if (len(team.index) == 0 or len(team_rating.index) == 0): #Can't find the team
         return [0 for x in range(numFeatures)]
 
@@ -287,15 +290,22 @@ def getSeasonData(team_id, year):
     avgAssists = totalAssists/numGames
     avgRebounds = totalRebounds/numGames
     avgSteals = totalSteals/numGames
-    return [numWins, avgPointsScored, avgPointsAllowed, checkPower6Conference(team_id), avg3sMade, avgAssists, avgTurnovers,
+    
+    a = [numWins, avgPointsScored, avgPointsAllowed, checkPower6Conference(team_id), avg3sMade, avgAssists, avgTurnovers,
            checkConferenceChamp(team_id, year), checkConferenceTourneyChamp(team_id, year), tournamentSeed,
             sos, srs, avgRebounds, avgSteals, getTourneyAppearances(team_id), getNumChampionships(team_id)]
+    if name == "Gonzaga":
+        print(a)
+    return a
 
 def createSeasonDict(year):
     seasonDictionary = collections.defaultdict(list)
     for team in teamList:
         team_id = teams_pd[teams_pd['TeamName'] == team].values[0][0]
         team_vector = getSeasonData(team_id, year)
+        if team == "Gonzaga":
+            print(year, team_id, team_vector)
+            # raise ValueError
         seasonDictionary[team_id] = team_vector
     return seasonDictionary
 
@@ -374,9 +384,9 @@ try:
 except NameError:
     pass
 
-endYear = int(input('What year do you have data until?\n'))
+endYear = 2022
 
-years = range(1993,endYear + 1)
+years = list(range(1993,endYear + 1))#range(1993,endYear + 1)
 # Saves the team vectors for the following years
 saveYears = range(endYear - 4,endYear + 1)
 if os.path.exists("Data/PrecomputedMatrices/xTrain.npy") and os.path.exists("Data/PrecomputedMatrices/yTrain.npy"):
